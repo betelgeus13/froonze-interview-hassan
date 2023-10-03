@@ -1,0 +1,5 @@
+
+name = 'Concierge Customer Accounts'
+scopes = 'read_customers,write_customers,read_themes,write_themes,read_locales,write_locales,read_translations,write_translations,read_content,read_products,read_orders,write_orders,read_discounts,write_discounts'
+extension_directories = ['shopify_theme_app_extension/dist/*']
+web_directories = ["/*"]

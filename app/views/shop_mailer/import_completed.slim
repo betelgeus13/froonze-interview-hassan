@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+  body
+    p
+      | Hi 
+      =< @shop.owner
+      | , 
+    p
+      | A CSV file was recently uploaded for your shop 
+      =< link_to @shop.name, @shop.https_custom_domain
+      | . 
+    P 
+      | We processed a total of 
+      =< pluralize(@total_processed, 'rows')
+      | . Here are the results. 
+
+    p
+      - if @import_type == Shops::ImportService::LOYALTY
+        | Loyalty points of
+        =<> pluralize(@import_count, 'customer')
+      - elsif @import_type == Shops::ImportService::WISHLIST
+        =<> pluralize(@import_count, 'wishlist item')
+      | were imported.
+    - if @import_type == Shops::ImportService::WISHLIST
+      - if @expected_count > @import_count
+         => pluralize(@expected_count - @import_count, @import_type)
+         | were already in our system, and so those rows were skipped during import.
+    
+    - if @errors.count > 0 
+      p
+        b
+          u Important
+        | : 
+        =<> pluralize(@errors.count, 'row')
+        | in the CSV file, however, could not be imported as some info was missing or couldn't be paired with your customers database.
+    - else
+      p We were able to import all the items in your CSV file without any issue. Perfect!
+
+    - if @errors.count > 0 
+      | We used the following mapping. Please update it if the mapping was incorrect and retry the import. 
+      br
+      - @mapping.each do |field, header| 
+        - if header.present?
+          b =<> field
+          | from column 
+          =<> header
+          br
+
+      <br>
+      - @errors.each do |error| 
+        p 
+          = error.html_safe
+    p
+      | Best regards,
+    p
+      | Froonze Support

@@ -1,0 +1,7 @@
+- if @sleekplan_sso_token
+  javascript:
+    window.SLEEK_USER = {
+      token: '#{ @sleekplan_sso_token }',
+    }
+
+    window.$sleek=[];window.SLEEK_PRODUCT_ID=558042200;(function(){d=document;s=d.createElement("script");s.src="https://client.sleekplan.com/sdk/e.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();

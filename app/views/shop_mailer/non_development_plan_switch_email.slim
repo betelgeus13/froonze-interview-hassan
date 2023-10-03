@@ -1,0 +1,24 @@
+p
+  | Hi
+  =< @shop.owner
+  | ,
+
+p
+  | Your shop
+  b =<> @shop.shopify_domain
+  | switched to a non-development Shopify plan.
+
+p
+  | Development shops can activate all of our plugins for free, but when a shop switches to a non-development plan, we require payment for the plugins.
+
+p
+  | That's why we cancelled your previous subscription. If you want to resubscribe again, just go to
+  a<> href="#{root_url}?shop=#{@shop.shopify_domain}#plugins" target='_blank'
+    | the app dashboard
+  | to create a new subscription.
+
+p
+  | Best regards,
+
+p
+  | Froonze team

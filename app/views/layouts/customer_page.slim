@@ -1,0 +1,19 @@
+html lang="en"
+  head
+    = render partial: 'development/customer_page_script'
+    = render partial: 'development/customer_page_shop_data_script'
+    = javascript_pack_tag('customer_page', id: 'frcp_customer_page_main_js')
+    
+    = stylesheet_pack_tag 'customer_page', media: 'all'
+    = javascript_pack_tag('product_wishlist')
+    = stylesheet_pack_tag 'product_wishlist', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = csrf_meta_tags
+
+    title
+      = @title || 'Customer Page'
+
+    meta name="viewport" content="width=device-width"
+
+  body class='customer-page-body'
+    = yield

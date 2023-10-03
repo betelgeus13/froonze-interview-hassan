@@ -1,0 +1,6 @@
+= render partial: 'shared/shopify_login_form_spinner'
+
+= form_tag(@form_action, id: 'social_login_form')
+
+javascript:
+  document.querySelector('#social_login_form').submit()

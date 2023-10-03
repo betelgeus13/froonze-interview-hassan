@@ -1,0 +1,28 @@
+plugins_metafield_update_scheduler_job:
+  cron: "0 0 * * *" # run every day at 00:00
+  class: Shops::PluginsMetafieldUpdateSchedulerJob
+  queue: low
+feedback_request_scheduler_job:
+  cron: "0 15 * * *" # run every day at 15:00 (9am CST)
+  class: Shops::FeedbackRequestSchedulerJob
+  queue: low
+customers_count_updater_scheduler:
+  cron: "0 0 * * 0" # every week on Sunday
+  class: Shops::CustomersCountUpdaterSchedulerJob
+  queue: low
+store_growth_daily_job:
+  cron: "1 0 * * *" # run every day at 00:01 Delayed a bit so we make sure the job runs on next day
+  class: Admin::StoreGrowthDailyJob
+  queue: low
+loyalty_birthday_points_shops_scheduler_job:
+  cron: "1 0 * * *" # run every day at 00:01 Delayed a bit so we make sure the job runs on next day
+  class: Loyalty::BirthdayPointsShopsSchedulerJob
+  queue: low
+loyalty_monthly_orders_checker_scheduler_job:
+  cron: "0 16 * * *" # run every day at 16:00 (10am CST)
+  class: Shops::LoyaltyMonthlyOrdersCheckerSchedulerJob
+  queue: low
+wishlist_auto_reminder_for_all_shops:
+  cron: "1 0 * * *" # run every day at 00:01 Delayed a bit so we make sure the job runs on next day
+  class: Wishlists::ReminderNotificationsForAllShopsJob
+  queue: low

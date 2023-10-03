@@ -1,0 +1,24 @@
+@mixin transform($value)  {
+  -webkit-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+
+@mixin middle-align-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include transform(translateX(-50%) translateY(-50%));
+}
+
+@mixin horizontal-centered-child {
+  position: absolute;
+  left: 50%;
+  @include transform(translateX(-50%));
+}
+
+@mixin text-elipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

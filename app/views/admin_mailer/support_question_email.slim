@@ -1,0 +1,32 @@
+p
+  => @question.name
+  | just submitted a new support question:
+
+| _____________________________________________________________________
+p
+  = simple_format(@question.message)
+| _____________________________________________________________________
+
+p
+  | Here's what we know about their shop:
+
+ul
+  li
+    | Shop name:
+    =< @shop.name
+  li
+    | Email:
+    =< @shop.email
+  li
+    | Owner:
+    =< @shop.owner
+  li
+    | Domain:
+    =< @shop.shopify_domain
+  li
+    | Shopify plan:
+    =< @shop.shopify_plan
+  - if @shop.storefront_password.present?
+    li
+      | Storefront password:
+      =< @shop.storefront_password

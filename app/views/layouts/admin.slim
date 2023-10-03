@@ -1,0 +1,14 @@
+html lang="en"
+  head
+    javascript:
+      window.globalConstants = #{{ @global_constants.to_json }}
+    = javascript_pack_tag('admin')
+    = stylesheet_pack_tag 'admin', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = csrf_meta_tags
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css"
+    link rel="shortcut icon" type="image/x-icon" href="https://i.postimg.cc/pT7nns4Q/favicon.png"
+    title
+      | Admin
+
+  body class='admin-body'

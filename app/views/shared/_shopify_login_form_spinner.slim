@@ -1,0 +1,49 @@
+.veil
+  .container
+    .spinner
+    .loading-text
+      = @text || 'Logging you in'
+      | ...
+
+scss:
+  @mixin transform($value)  {
+    -webkit-transform: $value;
+        -ms-transform: $value;
+            transform: $value;
+  }
+
+  @-webkit-keyframes frcp-spin {
+    0%   { @include transform(rotate(0deg));   }
+    100% { @include transform(rotate(359deg)); }
+  }
+
+  @keyframes frcp-spin {
+    0%   { @include transform(rotate(0deg));   }
+    100% { @include transform(rotate(359deg)); }
+  }
+
+  .container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-top: 3px solid lightgrey;
+    border-right: 3px solid lightgrey;
+    border-bottom: 3px solid lightgrey;
+    border-left: 3px solid grey;
+    -webkit-animation: frcp-spin 0.8s infinite linear;
+    animation: frcp-spin 0.8s infinite linear;
+    margin: 0 auto;
+    &:empty { display: block; } // to fix Dawn theme
+  }
+
+  .loading-text {
+    margin-top: 4px;
+  }

@@ -1,0 +1,27 @@
+html lang="en"
+  head
+    javascript:
+      window.globalConstants = #{{ @global_constants.to_json }}
+      window.shopInfo = #{{ @shop_info.to_json }}
+      window.texts = #{{ @texts.to_json }}
+      window.frcpEmbedded = {
+        redirectPath: #{{ @navigate.to_json }}
+      }
+    = javascript_pack_tag('shopify_embedded')
+    = javascript_pack_tag('merchant_dashboard')
+    = stylesheet_pack_tag 'merchant_dashboard', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css" media="print" onload="this.media='all'; this.onload=null;"
+    link rel="shortcut icon" type="image/x-icon" href="https://i.postimg.cc/pT7nns4Q/favicon.png"
+
+    title
+      = @title || 'Froonze | Merchant Dashboard'
+
+  body class='merchant-dashboard-body'
+    = content_tag(:div, nil, id: 'flash-messages', data: { flash: { notice: flash[:notice], error: flash[:error] } })
+
+    main class="frcp-app"
+      = yield 
+
+    = render 'merchant_dashboard/sleekplan_script'

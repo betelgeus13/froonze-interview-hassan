@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+  body
+    p
+      | Hi
+      =< @shop.owner
+      | ,
+
+    p
+      => @full_name
+      | account request is waiting for approval. 
+    p
+      | Please check and approve the request
+      =< reference_link_to('here', @url)
+
+    p
+      | Best regards,
+
+    p
+      | Froonze Team

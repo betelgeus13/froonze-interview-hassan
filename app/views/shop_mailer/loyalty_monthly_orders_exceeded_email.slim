@@ -1,0 +1,26 @@
+| Hi
+=< @shop.owner
+| ,
+
+p
+  | Your shop
+  b =<> @shop.shopify_domain
+  | exceeded monthly order limit for the Loyalty plugin.
+
+p
+  | Your current Loyalty plugin plan includes up to
+  =<> @max_orders_count
+  | orders. However, in the last 30 days your shop had
+  =<> @shop.monthly_orders_count
+  | orders.
+
+p
+  | Please upgrade your plan in the
+  a< href="#{@shop.https_domain}/admin/apps/customer-account-concierge/plugins" target="_blank"
+    | app dashboard
+  | . Otherwise, you won't be able to access to your Loyalty program dashboard.
+
+p
+  | Best regards,
+  br
+  | Froonze team

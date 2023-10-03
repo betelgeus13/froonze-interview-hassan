@@ -1,0 +1,19 @@
+p
+  | Hi
+  =< @shop.owner
+  | ,
+
+p
+  | This is Max from
+  =< reference_link_to('Froonze', 'https://apps.shopify.com/customer-accounts')
+  | . You installed our app on your store
+  =<> reference_link_to(@shop.name, @shop.https_domain)
+  | a few weeks ago.
+p
+  | I just want to check if you are satisfied using our app so far. Is there anything that we can help you with?
+
+p
+  | Best regards,
+
+p
+  | Max

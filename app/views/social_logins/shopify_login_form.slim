@@ -1,0 +1,9 @@
+= render partial: 'shared/shopify_login_form_spinner'
+
+form action=@form_action id="social_login_form" method="post" style="display: none;"
+  input name="customer[email]" value=@email
+  input name="customer[password]" value=@password
+  input type="hidden" name="checkout_url" value=@return_url
+
+javascript:
+  document.querySelector('#social_login_form').submit()

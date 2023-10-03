@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
+  <body></body>
+</html>
+
+<script>
+  const URL_PARAMS = new URLSearchParams(window.location.search);
+  const COOKIE_NAME = URL_PARAMS.get('shop') + '__frcp_google_one_tap_closed';
+  const SPECIAL_DEBUG_PARAM = 'frcp_one_tap_debug';
+
+  (function init() {
+    if (window.parent == window) return;
+    if (URL_PARAMS.get(SPECIAL_DEBUG_PARAM)) deleteCookie(COOKIE_NAME)
+    if (getCookie(COOKIE_NAME)) closeParentIframe()
+
+    const shop = URL_PARAMS.get('shop');
+    const clientId = URL_PARAMS.get('client_id');
+
+    if (!shop || !clientId) return
+    loadOneTapScript(clientId)
+  })()
+
+  function loadOneTapScript(clientId) {
+    const el = document.createElement('div');
+    el.id = "g_id_onload";
+    el.dataset.client_id = clientId;
+    el.dataset.callback = "callback";
+    el.dataset.skip_prompt_cookie = COOKIE_NAME;
+    el.dataset.moment_callback = 'momentCallback';
+    document.body.append(el);
+
+    const script = document.createElement('script');
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    document.head.append(script);
+  }
+
+  function closeParentIframe() {
+    const messageData = { event: 'frcp_google_one_tap_close' }
+    window.parent.postMessage(messageData, "*");
+  }
+
+  function callback(data) {
+    const messageData = {
+      event: "frcp_google_one_tap_data",
+      data: data
+    };
+    window.parent.postMessage(messageData, "*");
+  }
+
+  function momentCallback(event) {
+    if (event.g == 'display') {
+      if (event.h) {
+        resizeParentIframe()
+        setIframeObserver()
+      } else {
+        closeParentIframe()
+      }
+    } else if (event.g == 'skipped') {
+      setCookie(COOKIE_NAME, 1, 1)
+      closeParentIframe()
+    }
+  }
+
+  function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=None; Secure";
+  }
+
+  function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=None; Secure`;
+  }
+
+  function setIframeObserver() {
+    const iframe = getCredentialPickerIframe()
+    const observer = new MutationObserver(function(mutationsList, observer) {
+      mutationsList.forEach(function(mutation) {
+        if (mutation.attributeName == 'style') resizeParentIframe()
+      })
+    });
+    observer.observe(iframe, { attributes: true });
+  }
+
+  function resizeParentIframe() {
+    const iframe = getCredentialPickerIframe()
+    let heightInPx = iframe.style.height;
+    let height = parseInt(heightInPx);
+    height += 20;
+    heightInPx = height + 'px';
+
+    let width;
+    let originalWidth = iframe.style.width;
+    if (originalWidth.indexOf('%') >= 0) {
+      width = '90%';
+    } else {
+      width = parseInt(originalWidth);
+      width += 20;
+      width = width + 'px';
+    }
+
+    const messageData = {
+      event: 'frcp_google_one_tap_resize',
+      data: { height: heightInPx, width: width },
+    };
+    window.parent.postMessage(messageData, "*");
+  }
+
+  function getCredentialPickerIframe() {
+    let iframe = document.querySelector('#credential_picker_container iframe');
+    iframe ||= document.querySelector('#credential_picker_iframe'); // on mobile
+    return iframe
+  }
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+</script>

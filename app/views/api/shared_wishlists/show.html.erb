@@ -1,0 +1,65 @@
+<div class='frcp-wishlist-page frcp-wishlist-page--loading' data-wishlist-items='<%= @items.to_json %>' data-customer-id='{{ customer.id }}'>
+  <div class='frcp-spinner-wrapper'>
+    <div class='frcp-spinner'> </div>
+  </div>
+  
+  <%= javascript_pack_tag 'shared_wishlist', defer: true, async: true %>
+  <%= stylesheet_pack_tag 'shared_wishlist', media: 'all' %>
+    
+  <script>
+    window.frcp = window.frcp || {}
+    window.frcp.customerPage = window.frcp.customerPage || {}
+    frcp.customerPage.httpsUrl = '<%= Rails.application.credentials.host_url %>'
+    frcp.customerPage.useAppProxi = true
+    frcp.customerPage.moneyFormat = {{ shop.money_format | json }},
+    frcp.customerPage.profile =  {
+      id: {{ customer.id | json }}
+    }
+    
+    frcp.customerPage.settings = Object({{ shop.metafields.froonze_cp.customer_page_settings }})
+    frcp.customerPage.sharedBySameCustomer = <%= @shared_by_same_customer %>
+
+    // Translations for customer page
+    frcp.customerPage.texts = Object({{ shop.metafields.froonze_cp.customer_page_texts }})
+
+    frcp.wishlist = frcp.wishlist || {}
+    frcp.wishlist.sharePageList = '<%= @show_list %>'
+    frcp.wishlist.socialAppIds = {
+      facebook: '<%= Rails.application.credentials.social_logins&.dig(:facebook, :id) %>'
+    }
+    // Translations for wishlist
+    frcp.wishlist.texts = Object({{ shop.metafields.froonze_cp.product_wishlist_texts }})
+  </script>
+  
+  <style>
+    :root {
+      --frcp-maxWidth: 1200px;
+      --frcp-navDesktopWidth: 240px;
+      --frcp-desktopGutter: 32px;
+
+      --frcp-primaryColor: #5873F9;
+      --frcp-btnTextColor: #ffffff;
+      --frcp-backgroundColor: #ffffff;
+      --frcp-textColor: #202202;
+
+      --frcp-hoverOpacity:  0.7;
+      --frcp-lightBackground: #E5E5E5;
+      --frcp-lighterBackground: #F2F2F2;
+
+      --frcp-borderStyle: 1px solid var(--frcp-lightBackground);
+      --frcp-borderRadius: {{ block.settings.border_radius }}{% if block.settings.border_radius > 0 %}px{% endif %}; ;
+      --frcp-shadow: {% if block.settings.shadow %}0px 2px 12px -2px var(--frcp-lightBackground){% else %}none{% endif %};
+      --frcp-mobileNavTopOffset: {{ block.settings.mobile_nav_offset_top }}px;
+      
+      --frcp--productInputDimension: 32px;
+    }
+    
+    .frcp-wishlist-page {
+      min-height: 400px;
+    }
+
+    .frcp-wishlist-page--loading .frcp-spinner-wrapper {
+      display: block;
+    }
+  </style>
+</div>

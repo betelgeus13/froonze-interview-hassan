@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+
+  <body style="background-color: whitesmoke; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 40px 0; text-align:center;">
+    <% if @template.is_html? %>
+      <%== @variables_replacer.call(@template.html) %>
+    <% else %>
+      <%= yield %>
+    <% end %>
+    <div style="color: #9a9ea6; font-size: 12px;">
+      <div>
+        <%== @text_settings.footer_text %>
+      </div>
+      <a href="<%= @unsubscribe_url %>" style="display: block; color: #9a9ea6; margin-top: 12px;">
+        <%= @text_settings.unsubscribe_text.presence || 'Unsubscribe' %>
+      </a>
+    </div>
+  </body>
+</html>

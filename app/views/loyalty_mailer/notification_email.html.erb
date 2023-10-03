@@ -1,0 +1,22 @@
+<div style="padding: 20px;">
+  <div style="text-align: center; color: <%= @general_settings['text_color'] %>; background: <%= @general_settings['background_color'] %>; max-width: 580px; margin: 0 auto; padding: 40px 20px; border-radius: 4px;">
+    <div style="font-weight: 600; font-size: 20px; line-height: 28px">
+      <%= @variables_replacer.call(@template.title) %>
+    </div>
+    <% if @template.subtitle.present? %>
+      <div style="margin-top: 12px;">
+        <%= @variables_replacer.call(@template.subtitle) %>
+      </div>
+    <% end %>
+    <% if @discount_code %>
+      <div style="max-width: 400px; margin: 20px auto; border: 1px solid lightgrey; border-radius: 4px; padding: 12px; font-size: 20px;">
+        <%= @discount_code %>
+      </div>
+    <% end %>
+    <div style="margin-top: 24px">
+      <a href="<%= @shop.https_custom_domain %>" style="display: inline-block; border-radius: 6px; font-size: 16px; padding: 12px 24px; font-weight: 600; background-color: <%= @general_settings['button_background_color'] %>; color: <%= @general_settings['button_text_color'] %>; text-decoration-line: none;">
+        <%= @template.button_text %>
+      </a>
+    </div>
+  </div>
+</div>

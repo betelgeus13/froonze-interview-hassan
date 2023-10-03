@@ -1,0 +1,48 @@
+{
+  "name": "Concierge Customer Accounts",
+  "description": "Concierge Customer Accounts",
+  "keywords": [],
+  "website": "https://app.froonze.com",
+  "repository": "https://github.com/khier996/customer_portal",
+  "stack": "heroku-20",
+  "success_url": "/",
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    },
+    "sidekiq": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    "heroku-redis:mini",
+    "heroku-postgresql:mini"
+  ],
+  "environements": {
+    "test": {
+      "addons": [
+        "heroku-postgresql:in-dyno",
+        "heroku-redis:in-dyno"
+      ],
+      "env": {
+        "RAILS_ENV": "test",
+        "RACK_ENV": "test"
+      }
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}

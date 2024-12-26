@@ -7,6 +7,9 @@
       <router-link to='/theme_customizations'>
         <b-menu-item icon="monitor-dashboard" label="Theme customizations" :active="$route.path == '/theme_customizations'" />
       </router-link>
+      <router-link to='/logs'>
+        <b-menu-item icon="summarize" label="Logs" :active="$route.path == '/logs'"/>
+      </router-link>
     </b-menu-list>
   </b-menu>
 </template>

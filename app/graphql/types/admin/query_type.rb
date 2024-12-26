@@ -22,6 +22,24 @@ module Types
         Shop.find(id)
       end
 
+      field :team_member_search, [Types::Admin::TeamMemberType], null: false do
+        argument :query, String, required: true
+      end
+
+      def team_member_search(query:)
+        query = "%#{query.to_s.strip}%"
+        TeamMember.where('first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?', query, query, query).limit(10)
+      end
+
+      field :logs, [Types::Admin::LogType], null: false do
+        argument :member_id, ID, required: false
+      end
+
+      def logs(member_id: nil)
+        return Ahoy::Event.all unless member_id
+
+        Ahoy::Event.where(user_id: member_id)
+      end
     end
   end
 end

@@ -26,8 +26,8 @@ module Admin
       return if %w[teamMemberSearch shopSearch].include?(params[:operationName])
 
       ahoy.track params[:operationName], {
-        method: request.method,
-        url: request.url,
+        method: params["method"],
+        url: params["url"],
         query: params[:query],
       }
     end

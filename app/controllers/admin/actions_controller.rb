@@ -13,5 +13,12 @@ module Admin
       session['shopify.omniauth_params'] = nil
       redirect_to Rails.application.routes.url_helpers.root_url
     end
+
+    def track_action
+      ahoy.track "Login to Shop", {
+        shop_id: params[:shop_id],
+        shopify_domain: session[:shopify_domain],
+      }
+    end
   end
 end

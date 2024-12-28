@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Shop from 'Admin/components/shop.vue'
 import ShopInfo from 'Admin/components/shop_info/main.vue'
+import Logs from 'Admin/components/logs/main.vue'
 import ThemeCustomizations from 'Admin/components/theme_customizations/main.vue'
 import ThemeEditor from 'Admin/components/theme_editor/main.vue'
 
@@ -23,5 +24,6 @@ export default new VueRouter({
         },
       ]
     },
+    { path: '/logs', component: Logs },
   ],
 })

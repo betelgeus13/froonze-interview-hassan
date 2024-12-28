@@ -1,5 +1,6 @@
 module Admin
   class BaseController < ActionController::Base
+    after_action :track_action
 
     private
 
@@ -14,5 +15,11 @@ module Admin
       end
     end
 
+    def track_action
+      ahoy.track "Ran action", {
+        controller: params[:controller],
+        action: params[:action],
+      }
+    end
   end
 end

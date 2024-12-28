@@ -95,6 +95,9 @@ gem 'premailer'
 # Liquid gem to populate variables for review request email
 gem 'liquid'
 
+# For Logging
+gem "ahoy_matey"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'awesome_print', '~> 1.9.3', git: 'https://github.com/betelgeus13/awesome_print.git'

@@ -20,5 +20,17 @@ module Admin
       handle_error_in_development(e)
     end
 
+    private
+
+    def track_action
+      return if %w[teamMemberSearch shopSearch].include?(params[:operationName])
+
+      ahoy.track params[:operationName], {
+        method: params["method"],
+        url: params["url"],
+        query: params[:query],
+      }
+    end
+
   end
 end
